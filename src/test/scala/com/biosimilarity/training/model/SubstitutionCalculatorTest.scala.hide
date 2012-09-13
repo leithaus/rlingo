@@ -1,0 +1,86 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.protegra.training.model
+
+import org.junit._
+import Assert._
+import scala.collection.mutable.HashMap
+
+class SubstitutionCalculatorTest {
+
+  object calc extends SubstitutionCalculator with Language with FreeVariableCalculator with UUIDOps {
+    //type Swap = HashMap[Nominal,Nominal]
+  }
+  import calc._
+
+  @Before
+  def setUp: Unit = {
+  }
+
+  @After
+  def tearDown: Unit = {
+  }
+
+  @Test
+  def XforY = {
+    val swap = new HashMap[Nominal,Nominal]()
+    swap(StringVariable("x")) = StringVariable("y")
+    val expr = Mention(StringVariable("x"))
+    val result = calc.Substitution(expr, swap.asInstanceOf[SwapT[Nominal]])
+    assertEquals(Mention(StringVariable("y")), result)
+  }
+//
+//  @Test
+//  def UforY = {
+//
+//
+//    val swap:Swap = new HashMap()
+//    swap(StringVariable("u")) = StringVariable("y")
+//    val expr = Mention(StringVariable("x"))
+//    val result = calc.Substitution(expr, swap)
+//    assertEquals(Mention(StringVariable("x")), result)
+//  }
+//
+//  @Test
+//  def LambdaXSubstitutionWithoutCollisions = {
+//    val swap:Swap = new HashMap()
+//    swap(StringVariable("u")) = StringVariable("y")
+//    val expr = Abstraction(List(StringVariable("x")), Mention(StringVariable("x")))
+//    val result = calc.Substitution(expr, swap)
+//    assertEquals(expr, result)
+//  }
+//
+//  @Test
+//  def LambdaXSubstitutionWithCollisions = {
+//    val swap:Swap = new HashMap()
+//    swap(StringVariable("x")) = StringVariable("y")
+//    val expr = Abstraction(List(StringVariable("x")), Mention(StringVariable("x")))
+//    val result = calc.Substitution(expr, swap)
+//    val expectedResult = Abstraction(List(StringVariable("x")), Mention(StringVariable("x")))
+//    assertFalse(result.equals(expectedResult))
+//  }
+//
+//  @Test
+//  def MNwithoutCollisions = {
+//    val swap:Swap = new HashMap[Nominal,Nominal]()
+//    swap(StringVariable("u")) = StringVariable("y")
+//    val identity = Abstraction(List(StringVariable("x")), Mention(StringVariable("x")))
+//    val expr = Application(identity, List(Mention(StringVariable("n"))))
+//    val result = calc.Substitution(expr, swap)
+//    assertEquals(expr, result)
+//  }
+//
+//  @Test
+//  def MNwithCollisions = {
+//    val swap:Swap = new HashMap[Nominal,Nominal]()
+//    swap(StringVariable("x")) = StringVariable("y")
+//    val identity = Abstraction(List(StringVariable("x")), Mention(StringVariable("x")))
+//    val expr = Application(identity, List(Mention(StringVariable("n"))))
+//    val result = calc.Substitution(expr, swap)
+//    assertFalse(result.equals(expr))
+//  }
+  
+}
